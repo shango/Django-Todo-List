@@ -1,1 +1,52 @@
-<h1> Hello World! </h1>
+{% extends 'base.html' %}
+
+{% block title %} To-do List {% endblock %}
+
+{% block content %}
+
+<div class="mx-auto p-3" style="width: 600px;">
+    <form class="row g-3" method="POST">
+        {% csrf_token %}
+        <div class="col-auto">
+            <input class="form-control me-3" type="search" placeholder="To-do Item" aria-label="Item" name="item">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="mb-3 btn btn-outline-success">Add Item</button>
+        </div>
+    </form>
+</div>
+</br>
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+</br>
+<div>
+    <table class="table table-bordered">
+        {% if all_items %}
+            {% for list_item in all_items %}
+                {% if list_item.completed %}
+        <tr class="table-secondary">
+            <td class="strikethrough">{{ list_item.item }}</td>
+            <td><center>{{ list_item.completed }}</center></td>
+            <td><center><a href="{% url 'delete' list_item.id %}">Delete</a></center></td>
+        </tr>
+                {% else %}
+        <tr>
+            <td>{{ list_item.item }}</td>
+            <td><center>{{ list_item.completed }}</center></td>
+            <td><center><a href="{% url 'delete' list_item.id %}">Delete</a></center></td>
+        </tr>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+    </table>
+</div>
+
+{% endblock %}
