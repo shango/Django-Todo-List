@@ -33,14 +33,15 @@
                 {% if list_item.completed %}
         <tr class="table-secondary">
             <td class="strikethrough">{{ list_item.item }}</td>
-            <td><center>{{ list_item.completed }}</center></td>
-            <td><center><a href="{% url 'delete' list_item.id %}">Delete</a></center></td>
+            <td><center><button type="button" class="btn btn-outline-secondary"><a href="{% url 'uncross' list_item.id %}">Uncross</a></button></center></td>
+            <td><center><button type="button" class="btn btn-outline-danger"><a href="{% url 'delete' list_item.id %}">Delete</a></button></center></td>
+            
         </tr>
                 {% else %}
         <tr>
             <td>{{ list_item.item }}</td>
-            <td><center>{{ list_item.completed }}</center></td>
-            <td><center><a href="{% url 'delete' list_item.id %}">Delete</a></center></td>
+            <td><center><button type="button" class="btn btn-outline-secondary"><a href="{% url 'cross_off' list_item.id %}">Uncross</a></button></center></td>
+            <td><center><button type="button" class="btn btn-outline-danger"><a href="{% url 'delete' list_item.id %}">Delete</a></button></center></td>
         </tr>
                 {% endif %}
             {% endfor %}
